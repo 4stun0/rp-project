@@ -1,0 +1,292 @@
+
+        <html>
+        <head>
+            <title>Narrativas de Clusters de Estudantes</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 20px; }
+                .container { 
+                    max-width: 1200px; 
+                    margin: 0 auto; 
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                    gap: 20px;
+                }
+                .cluster-card { 
+                    border: 1px solid #ddd; 
+                    border-radius: 8px; 
+                    padding: 15px; 
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                    height: 100%;
+                }
+                .cluster-header { 
+                    display: flex; 
+                    justify-content: space-between; 
+                    border-bottom: 1px solid #eee;
+                    padding-bottom: 10px;
+                    margin-bottom: 10px;
+                }
+                .cluster-title { font-size: 18px; font-weight: bold; }
+                .cluster-size { font-size: 16px; color: #666; }
+                .cluster-description { font-size: 16px; margin: 10px 0; }
+                .cluster-features { margin: 10px 0; }
+                .feature-tag {
+                    display: inline-block;
+                    background: #f0f0f0;
+                    padding: 5px 10px;
+                    border-radius: 15px;
+                    margin-right: 5px;
+                    margin-bottom: 5px;
+                    font-size: 12px;
+                }
+                .sequences-title { font-weight: bold; margin-top: 15px; }
+                .sequence-item { margin: 5px 0; font-size: 14px; }
+                .header-info {
+                    margin-bottom: 20px;
+                    padding: 10px;
+                    background-color: #f8f9fa;
+                    border-radius: 5px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="header-info">
+                <h1>Narrativas de Clusters de Estudantes</h1>
+                <p>Análise baseada em algoritmo híbrido de clusterização (K-means + SOM)</p>
+                <p>Mostrando {len(narratives_df)} clusters (mínimo de {min_cluster_size_percent:.1f}% de estudantes por cluster)</p>
+            </div>
+            <div class="container">
+        
+            <div class="cluster-card">
+                <div class="cluster-header">
+                    <div class="cluster-title">Cluster 14</div>
+                    <div class="cluster-size">391.0 estudantes (15.4%)</div>
+                </div>
+                <div class="cluster-description">Grupo com perfil misto de participação</div>
+                <div class="cluster-profile">Grupo de estudantes com acessos frequentes com pequenos intervalos, pouca participação em fóruns</div>
+                <div class="cluster-features">
+            <span class="feature-tag">acessos frequentes com pequenos intervalos</span><span class="feature-tag">pouca participação em fóruns</span>
+                </div>
+            
+                <div class="sequences-title">Padrões de navegação comuns:</div>
+                <ul>
+                <li class="sequence-item">visualização de atividade básica do curso → visualização de atividade básica do curso → mod_quiz_viewed... (observado 4 vezes)</li><li class="sequence-item">visualização de atividade básica do curso → visualização de atividade básica do curso → mod_resource_viewed... (observado 3 vezes)</li>
+                </ul>
+                
+            </div>
+            
+            <div class="cluster-card">
+                <div class="cluster-header">
+                    <div class="cluster-title">Cluster 1</div>
+                    <div class="cluster-size">256.0 estudantes (10.1%)</div>
+                </div>
+                <div class="cluster-description">Grupo com perfil misto de participação</div>
+                <div class="cluster-profile">Grupo de estudantes com acessos frequentes com pequenos intervalos, preferência por acessos matutinos</div>
+                <div class="cluster-features">
+            <span class="feature-tag">acessos frequentes com pequenos intervalos</span><span class="feature-tag">preferência por acessos matutinos</span>
+                </div>
+            
+                <div class="sequences-title">Padrões de navegação comuns:</div>
+                <ul>
+                <li class="sequence-item">visualização de atividade básica do curso → mod_resource_viewed → mod_quiz_viewed... (observado 4 vezes)</li>
+                </ul>
+                
+            </div>
+            
+            <div class="cluster-card">
+                <div class="cluster-header">
+                    <div class="cluster-title">Cluster 3</div>
+                    <div class="cluster-size">250.0 estudantes (9.9%)</div>
+                </div>
+                <div class="cluster-description">Grupo com perfil misto de participação</div>
+                <div class="cluster-profile">Grupo de estudantes com acessos frequentes com pequenos intervalos, pouca participação em fóruns</div>
+                <div class="cluster-features">
+            <span class="feature-tag">acessos frequentes com pequenos intervalos</span><span class="feature-tag">pouca participação em fóruns</span>
+                </div>
+            
+                <div class="sequences-title">Padrões de navegação comuns:</div>
+                <ul>
+                <li class="sequence-item">visualização de atividade básica do curso → mod_resource_viewed → mod_quiz_viewed... (observado 6 vezes)</li><li class="sequence-item">visualização de atividade básica do curso → mod_quiz_viewed → visualização de atividade básica do curso... (observado 4 vezes)</li><li class="sequence-item">visualização de atividade básica do curso → mod_resource_viewed → visualização de atividade básica do curso... (observado 4 vezes)</li>
+                </ul>
+                
+            </div>
+            
+            <div class="cluster-card">
+                <div class="cluster-header">
+                    <div class="cluster-title">Cluster 9</div>
+                    <div class="cluster-size">247.0 estudantes (9.7%)</div>
+                </div>
+                <div class="cluster-description">Grupo com perfil misto de participação</div>
+                <div class="cluster-profile">Grupo de estudantes com acessos frequentes com pequenos intervalos</div>
+                <div class="cluster-features">
+            <span class="feature-tag">acessos frequentes com pequenos intervalos</span>
+                </div>
+            
+                <div class="sequences-title">Padrões de navegação comuns:</div>
+                <ul>
+                <li class="sequence-item">visualização de atividade básica do curso → mod_quiz_viewed → visualização de atividade básica do curso... (observado 7 vezes)</li><li class="sequence-item">visualização de atividade básica do curso → mod_resource_viewed → mod_quiz_viewed... (observado 4 vezes)</li><li class="sequence-item">visualização de atividade básica do curso → mod_resource_viewed → visualização de atividade básica do curso... (observado 3 vezes)</li>
+                </ul>
+                
+            </div>
+            
+            <div class="cluster-card">
+                <div class="cluster-header">
+                    <div class="cluster-title">Cluster 5</div>
+                    <div class="cluster-size">208.0 estudantes (8.2%)</div>
+                </div>
+                <div class="cluster-description">Grupo com perfil misto de participação</div>
+                <div class="cluster-profile">Grupo de estudantes com preferência por acessos noturnos, acessos frequentes com pequenos intervalos</div>
+                <div class="cluster-features">
+            <span class="feature-tag">preferência por acessos noturnos</span><span class="feature-tag">acessos frequentes com pequenos intervalos</span>
+                </div>
+            
+            </div>
+            
+            <div class="cluster-card">
+                <div class="cluster-header">
+                    <div class="cluster-title">Cluster 15</div>
+                    <div class="cluster-size">196.0 estudantes (7.7%)</div>
+                </div>
+                <div class="cluster-description">Grupo de estudantes muito ativos na plataforma</div>
+                <div class="cluster-profile">Grupo de estudantes com participação ativa em fóruns, acessos frequentes com pequenos intervalos, alta participação geral</div>
+                <div class="cluster-features">
+            <span class="feature-tag">participação ativa em fóruns</span><span class="feature-tag">acessos frequentes com pequenos intervalos</span><span class="feature-tag">alta participação geral</span>
+                </div>
+            
+            </div>
+            
+            <div class="cluster-card">
+                <div class="cluster-header">
+                    <div class="cluster-title">Cluster 4</div>
+                    <div class="cluster-size">184.0 estudantes (7.3%)</div>
+                </div>
+                <div class="cluster-description">Grupo com perfil misto de participação</div>
+                <div class="cluster-profile">Perfil neutro sem características distintivas</div>
+                <div class="cluster-features">
+            
+                </div>
+            
+                <div class="sequences-title">Padrões de navegação comuns:</div>
+                <ul>
+                <li class="sequence-item">visualização de atividade básica do curso → mod_resource_viewed → visualização de atividade básica do curso... (observado 3 vezes)</li><li class="sequence-item">visualização de atividade básica do curso → mod_resource_viewed → visualização de atividade básica do curso... (observado 3 vezes)</li>
+                </ul>
+                
+            </div>
+            
+            <div class="cluster-card">
+                <div class="cluster-header">
+                    <div class="cluster-title">Cluster 11</div>
+                    <div class="cluster-size">177.0 estudantes (7.0%)</div>
+                </div>
+                <div class="cluster-description">Grupo com perfil misto de participação</div>
+                <div class="cluster-profile">Grupo de estudantes com acessos frequentes com pequenos intervalos</div>
+                <div class="cluster-features">
+            <span class="feature-tag">acessos frequentes com pequenos intervalos</span>
+                </div>
+            
+            </div>
+            
+            <div class="cluster-card">
+                <div class="cluster-header">
+                    <div class="cluster-title">Cluster 18</div>
+                    <div class="cluster-size">127.0 estudantes (5.0%)</div>
+                </div>
+                <div class="cluster-description">Grupo de estudantes muito ativos na plataforma</div>
+                <div class="cluster-profile">Grupo de estudantes com participação ativa em fóruns, alta participação geral, acessos frequentes com pequenos intervalos</div>
+                <div class="cluster-features">
+            <span class="feature-tag">participação ativa em fóruns</span><span class="feature-tag">alta participação geral</span><span class="feature-tag">acessos frequentes com pequenos intervalos</span>
+                </div>
+            
+            </div>
+            
+            <div class="cluster-card">
+                <div class="cluster-header">
+                    <div class="cluster-title">Cluster 10</div>
+                    <div class="cluster-size">112.0 estudantes (4.4%)</div>
+                </div>
+                <div class="cluster-description">Grupo com perfil misto de participação</div>
+                <div class="cluster-profile">Grupo de estudantes com acessos frequentes com pequenos intervalos, preferência por estudar nos finais de semana, desempenho acadêmico abaixo da média</div>
+                <div class="cluster-features">
+            <span class="feature-tag">acessos frequentes com pequenos intervalos</span><span class="feature-tag">preferência por estudar nos finais de semana</span><span class="feature-tag">desempenho acadêmico abaixo da média</span>
+                </div>
+            
+            </div>
+            
+            <div class="cluster-card">
+                <div class="cluster-header">
+                    <div class="cluster-title">Cluster 12</div>
+                    <div class="cluster-size">81.0 estudantes (3.2%)</div>
+                </div>
+                <div class="cluster-description">Grupo com perfil misto de participação</div>
+                <div class="cluster-profile">Grupo de estudantes com preferência por estudar nos finais de semana</div>
+                <div class="cluster-features">
+            <span class="feature-tag">preferência por estudar nos finais de semana</span>
+                </div>
+            
+                <div class="sequences-title">Padrões de navegação comuns:</div>
+                <ul>
+                <li class="sequence-item">visualização de atividade básica do curso → mod_quiz_viewed → visualização de atividade básica do curso... (observado 5 vezes)</li><li class="sequence-item">visualização de atividade básica do curso → mod_quiz_viewed → visualização de atividade básica do curso... (observado 4 vezes)</li>
+                </ul>
+                
+            </div>
+            
+            <div class="cluster-card">
+                <div class="cluster-header">
+                    <div class="cluster-title">Cluster 13</div>
+                    <div class="cluster-size">61.0 estudantes (2.4%)</div>
+                </div>
+                <div class="cluster-description">Grupo com perfil misto de participação</div>
+                <div class="cluster-profile">Grupo de estudantes com acessos espaçados com grandes intervalos, acessos frequentes com pequenos intervalos</div>
+                <div class="cluster-features">
+            <span class="feature-tag">acessos espaçados com grandes intervalos</span><span class="feature-tag">acessos frequentes com pequenos intervalos</span>
+                </div>
+            
+                <div class="sequences-title">Padrões de navegação comuns:</div>
+                <ul>
+                <li class="sequence-item">visualização de atividade básica do curso → mod_quiz_viewed → mod_quiz_started... (observado 3 vezes)</li>
+                </ul>
+                
+            </div>
+            
+            <div class="cluster-card">
+                <div class="cluster-header">
+                    <div class="cluster-title">Cluster 2</div>
+                    <div class="cluster-size">58.0 estudantes (2.3%)</div>
+                </div>
+                <div class="cluster-description">Grupo com perfil misto de participação</div>
+                <div class="cluster-profile">Grupo de estudantes com acessos frequentes com pequenos intervalos, desempenho acadêmico abaixo da média</div>
+                <div class="cluster-features">
+            <span class="feature-tag">acessos frequentes com pequenos intervalos</span><span class="feature-tag">desempenho acadêmico abaixo da média</span>
+                </div>
+            
+            </div>
+            
+            <div class="cluster-card">
+                <div class="cluster-header">
+                    <div class="cluster-title">Cluster 17</div>
+                    <div class="cluster-size">49.0 estudantes (1.9%)</div>
+                </div>
+                <div class="cluster-description">Grupo de estudantes muito ativos na plataforma</div>
+                <div class="cluster-profile">Grupo de estudantes com alta participação geral, participação ativa em fóruns</div>
+                <div class="cluster-features">
+            <span class="feature-tag">alta participação geral</span><span class="feature-tag">participação ativa em fóruns</span>
+                </div>
+            
+            </div>
+            
+            <div class="cluster-card">
+                <div class="cluster-header">
+                    <div class="cluster-title">Cluster 16</div>
+                    <div class="cluster-size">43.0 estudantes (1.7%)</div>
+                </div>
+                <div class="cluster-description">Grupo de estudantes muito ativos na plataforma</div>
+                <div class="cluster-profile">Grupo de estudantes com preferência por estudar nos finais de semana, acessos frequentes com pequenos intervalos, alta participação geral</div>
+                <div class="cluster-features">
+            <span class="feature-tag">preferência por estudar nos finais de semana</span><span class="feature-tag">acessos frequentes com pequenos intervalos</span><span class="feature-tag">alta participação geral</span>
+                </div>
+            
+            </div>
+            
+            </div>
+        </body>
+        </html>
+        

@@ -22,7 +22,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, accuracy_score
 from minisom import MiniSom
 from scipy.cluster.hierarchy import dendrogram, linkage
-from scipy import stats
+from scipy import stats as scipy_stats
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -844,9 +844,9 @@ class HybridModel:
             means = cluster_data.drop(['userid', 'cluster'], axis=1).mean()
             
             # Adicionamos ao DataFrame de estatísticas
-            stats = {'cluster_id': cluster_id, 'n_members': n_members}
-            stats.update({col: means[col] for col in means.index})
-            cluster_stats.append(stats)
+            cluster_stat = {'cluster_id': cluster_id, 'n_members': n_members}
+            cluster_stat.update({col: means[col] for col in means.index})
+            cluster_stats.append(cluster_stat)
             
         # Criamos DataFrame de estatísticas
         stats_df = pd.DataFrame(cluster_stats)
@@ -871,6 +871,71 @@ class HybridModel:
             
             # Pegamos as 5 características mais distintivas
             distinctive_features[cluster_id] = sorted_deviations[:5]
+        
+        # Realizamos testes de hipótese entre os clusters
+        print("\n===== TESTES DE HIPÓTESE ENTRE CLUSTERS =====\n")
+        
+        # Variáveis de interesse para testes estatísticos
+        variables_of_interest = [
+            col for col in analysis_df.columns 
+            if col not in ['userid', 'cluster'] and 
+            ('avg_grade' in col or 'total_events' in col or 'access_frequency' in col)
+        ]
+        
+        # Se não encontrarmos variáveis específicas, usamos algumas comuns
+        if not variables_of_interest:
+            variables_of_interest = [
+                col for col in analysis_df.columns 
+                if col not in ['userid', 'cluster'] and 
+                any(term in col for term in ['grade', 'score', 'events', 'frequency', 'access', 'time'])
+            ]
+            
+            # Se ainda não encontrarmos, usamos as primeiras 5 características numéricas
+            if not variables_of_interest:
+                variables_of_interest = [col for col in analysis_df.columns 
+                                        if col not in ['userid', 'cluster'] 
+                                        and np.issubdtype(analysis_df[col].dtype, np.number)][:5]
+        
+        # Realizamos os testes para cada variável de interesse
+        for variable in variables_of_interest:
+            print(f"\nTestes para a variável: {variable}")
+            
+            # Preparamos os dados para os testes
+            groups = []
+            for cluster_id in np.unique(cluster_labels):
+                cluster_data = analysis_df[analysis_df['cluster'] == cluster_id][variable].dropna()
+                if len(cluster_data) > 0:  # Garantimos que há dados suficientes
+                    groups.append(cluster_data.values)
+            
+            if len(groups) < 2:
+                print(f"  Dados insuficientes para testes na variável {variable}")
+                continue
+                
+            # Teste ANOVA (paramétrico)
+            try:
+                from scipy import stats as scipy_stats
+                f_stat, p_value = scipy_stats.f_oneway(*groups)
+                print(f"  ANOVA: F={f_stat:.4f}, p-valor={p_value:.6f}")
+                if p_value < 0.05:
+                    print("  * Diferença estatisticamente significativa entre os clusters (ANOVA, p<0.05)")
+                if p_value < 0.01:
+                    print("  ** Diferença altamente significativa entre os clusters (ANOVA, p<0.01)")
+            except Exception as e:
+                print(f"  Erro ao realizar teste ANOVA: {str(e)}")
+            
+            # Teste Kruskal-Wallis (não-paramétrico)
+            try:
+                from scipy import stats as scipy_stats
+                h_stat, p_value = scipy_stats.kruskal(*groups)
+                print(f"  Kruskal-Wallis: H={h_stat:.4f}, p-valor={p_value:.6f}")
+                if p_value < 0.05:
+                    print("  * Diferença estatisticamente significativa entre os clusters (Kruskal-Wallis, p<0.05)")
+                if p_value < 0.01:
+                    print("  ** Diferença altamente significativa entre os clusters (Kruskal-Wallis, p<0.01)")
+            except Exception as e:
+                print(f"  Erro ao realizar teste Kruskal-Wallis: {str(e)}")
+        
+        print("\n===========================================\n")
         
         return stats_df, distinctive_features
 
